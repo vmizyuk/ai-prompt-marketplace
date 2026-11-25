@@ -1,5 +1,8 @@
 # Web Labs Starter (Vite + json-server)
 
+Preview: https://vmizyuk.github.io/ai-prompt-marketplace/
+
+
 A forkable starter for a 4-lab web course (HTML, SCSS, JS + API).
 - **No UI frameworks**; SCSS with mixins & functions.
 - **ES Modules**, simple class-based structure.
