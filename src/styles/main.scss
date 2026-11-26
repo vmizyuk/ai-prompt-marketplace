@@ -1,10 +1,32 @@
-// Main SCSS entry
-@use "abstracts/variables";
-@use "abstracts/functions";
-@use "abstracts/mixins";
-@use "base/reset";
-@use "base/typography";
-@use "layout/grid";
-@use "layout/header";
-@use "layout/footer";
-@use "pages/home";
+// 7-1 architecture entry point (order matters: vendors > themes > base > layout > components > pages > utilities)
+@use 'vendors/fonts';
+
+@use 'themes/default';
+@use 'themes/dark';
+
+@use 'base/reset';
+@use 'base/typography';
+
+@use 'layout/grid';
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/page';
+
+@use 'components/button';
+@use 'components/picture';
+@use 'components/prompt-card';
+@use 'components/form';
+@use 'components/table';
+@use 'components/breadcrumbs';
+@use 'components/pagination';
+@use 'components/code-block';
+@use 'components/review';
+
+@use 'pages/home';
+@use 'pages/catalog';
+@use 'pages/details';
+@use 'pages/cart';
+
+@use 'base/animations';
+@use 'base/utilities';
+@use 'base/print';
