@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+// Spacing utilities: u-mt-4, u-mb-2, u-mx-0, u-pt-3, u-pb-3, u-px-5
+@each $key, $value in $spacing {
+  .u-mt-#{$key} { margin-top: space($key) !important; }
+  .u-mb-#{$key} { margin-bottom: space($key) !important; }
+  .u-mx-#{$key} { margin-inline: space($key) !important; }
+  .u-pt-#{$key} { padding-top: space($key) !important; }
+  .u-pb-#{$key} { padding-bottom: space($key) !important; }
+  .u-px-#{$key} { padding-inline: space($key) !important; }
+}
+
+// Visibility utilities
+.visually-hidden,
+.u-sr-only {
+  @include visually-hidden;
+}
+
+.u-hidden {
+  display: none !important;
+}
+
+.u-hide-below-md {
+  @include below(md) {
+    display: none !important;
+  }
+}
+
+.u-hide-md-up {
+  @include respond(md) {
+    display: none !important;
+  }
+}
+
+.u-hide-lg-up {
+  @include respond(lg) {
+    display: none !important;
+  }
+}

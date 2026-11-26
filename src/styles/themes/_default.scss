@@ -1,0 +1,12 @@
+@use '../abstracts' as *;
+
+:root {
+  @each $name, $value in $colors {
+    --color-#{$name}: #{$value};
+  }
+  --color-on-accent: #{token(text)};
+  --color-muted: #{mix-color(token(text), token(bg), 75%)};
+  --color-line: #{mix-color(token(accent), token(surface), 35%)};
+  --color-tint: #{mix-color(token(accent), token(surface), 22%)};
+  --font-family: #{$font-family};
+}

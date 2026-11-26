@@ -1,0 +1,40 @@
+@page {
+  margin: 1.5cm;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+
+  .site-header__cart,
+  .main-nav,
+  .footer-nav,
+  .button,
+  .filters,
+  .pagination,
+  .newsletter,
+  .skip-link,
+  .buy-box__form {
+    display: none !important;
+  }
+
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+  }
+
+  a[href^='#']::after {
+    content: '';
+  }
+
+  .prompt-card,
+  .review,
+  tr {
+    break-inside: avoid;
+  }
+}

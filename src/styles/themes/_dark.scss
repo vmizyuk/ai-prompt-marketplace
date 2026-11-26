@@ -1,0 +1,11 @@
+@use '../abstracts' as *;
+
+// Optional theme: set <html data-theme="dark">
+[data-theme='dark'] {
+  --color-bg: #{token(text)};
+  --color-text: #{token(bg)};
+  --color-surface: #{mix-color(token(text), #ffffff, 88%)};
+  --color-muted: #{mix-color(token(bg), token(text), 75%)};
+  --color-line: #{mix-color(token(accent), token(text), 35%)};
+  --color-tint: #{mix-color(token(accent), token(text), 25%)};
+}
