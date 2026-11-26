@@ -1,0 +1,19 @@
+@use '../abstracts' as *;
+
+.pagination {
+  margin-top: space(6);
+
+  &__list {
+    @include flex(row, center, center, space(2), wrap);
+  }
+
+  &__link {
+    @include button-base;
+    @include button-variant(secondary);
+    min-width: rem(44px);
+    padding: 0 space(3);
+    &[aria-current='page'] {
+      background: c(accent);
+    }
+  }
+}

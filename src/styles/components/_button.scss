@@ -1,0 +1,18 @@
+@use '../abstracts' as *;
+
+.button {
+  @include button-base;
+  @include button-variant(primary);
+  @include text-style(body);
+  font-weight: 700;
+
+  &--secondary {
+    @include button-variant(secondary);
+  }
+
+  &--small {
+    min-height: rem(36px);
+    padding: 0 space(4);
+    @include text-style(label);
+  }
+}

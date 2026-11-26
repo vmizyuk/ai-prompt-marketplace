@@ -1,0 +1,23 @@
+@use '../abstracts' as *;
+
+.breadcrumbs {
+  margin-bottom: space(5);
+
+  &__list {
+    @include flex(row, flex-start, center, space(2), wrap);
+    color: c(muted);
+    @include text-style(caption);
+  }
+
+  &__item + &__item::before {
+    content: '/';
+    margin-right: space(2);
+  }
+
+  &__link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

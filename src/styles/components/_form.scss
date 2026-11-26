@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+.form-field {
+  @include flex(column, flex-start, stretch, space(1));
+
+  &__label {
+    @include text-style(label);
+  }
+
+  &__input {
+    width: 100%;
+    min-height: rem(44px);
+    padding: space(2) space(3);
+    border: 1.5px solid c(accent);
+    border-radius: radius(sm);
+    background: c(surface);
+    color: c(text);
+    &::placeholder {
+      color: c(muted);
+    }
+    &:focus-visible {
+      @include focus-ring;
+      border-color: c(text);
+    }
+  }
+}
+
+.form-fieldset {
+  @include flex(column, flex-start, stretch, space(3));
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  &__legend {
+    margin-bottom: space(2);
+    padding: 0;
+    @include text-style(label);
+  }
+}
+
+.form-check {
+  @include flex(row, flex-start, center, space(2));
+
+  &__input {
+    width: rem(20px);
+    height: rem(20px);
+    accent-color: var(--color-accent);
+  }
+}

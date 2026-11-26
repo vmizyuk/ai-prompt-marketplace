@@ -1,0 +1,11 @@
+@use '../abstracts' as *;
+
+.code-block {
+  margin: 0;
+  padding: space(4);
+  overflow-x: auto;
+  border-radius: radius(md);
+  background: c(text);
+  color: c(bg);
+  @include text-style(caption);
+}

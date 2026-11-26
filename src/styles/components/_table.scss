@@ -1,0 +1,48 @@
+@use '../abstracts' as *;
+
+.specs,
+.cart-table {
+  th,
+  td {
+    padding: space(3) space(2);
+    border-bottom: 1px solid c(line);
+    text-align: left;
+    vertical-align: middle;
+  }
+}
+
+.specs th[scope='row'] {
+  width: 40%;
+  color: c(muted);
+}
+
+.cart-table {
+  min-width: rem(560px);
+
+  thead th {
+    @include text-style(label);
+  }
+
+  tfoot th,
+  tfoot td {
+    border-bottom: 0;
+    @include text-style(price);
+  }
+
+  input[type='number'] {
+    width: rem(72px);
+  }
+
+  &__link {
+    font-weight: 700;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__tag {
+    color: c(muted);
+    @include text-style(caption);
+  }
+}

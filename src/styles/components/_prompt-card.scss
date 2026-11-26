@@ -1,0 +1,77 @@
+@use '../abstracts' as *;
+
+.prompt-list {
+  @include row;
+
+  &__item {
+    display: flex;
+    @include col(12);
+    @include respond(md) {
+      @include col(6);
+    }
+    @include respond(lg) {
+      @include col(4);
+    }
+    &:nth-child(2) .prompt-card {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(3) .prompt-card {
+      animation-delay: 0.2s;
+    }
+  }
+}
+
+.prompt-card {
+  @include surface(lg);
+  @include hover-lift;
+  @include animate(appear);
+  display: flex;
+  flex-direction: column;
+  gap: space(3);
+  width: 100%;
+  padding: space(4);
+
+  &__media {
+    margin: 0;
+  }
+
+  &__body {
+    @include flex(column, flex-start, stretch, space(2));
+    flex: 1;
+  }
+
+  &__tag {
+    align-self: flex-start;
+    @include pill-tag;
+  }
+
+  &__title {
+    @include text-style(h3);
+  }
+
+  &__link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__author {
+    color: c(muted);
+    @include text-style(caption);
+  }
+
+  &__rating {
+    @include text-style(label);
+  }
+
+  &__footer {
+    @include flex(row, space-between, center, space(3), wrap);
+    margin-top: auto;
+    padding-top: space(2);
+  }
+
+  &__price {
+    @include text-style(price);
+  }
+}
