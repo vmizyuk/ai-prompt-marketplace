@@ -1,21 +1,172 @@
-// _mixins.scss
-@mixin container($max: 1200px) {
-  width: 100%;
-  max-width: $max;
-  margin-inline: auto;
-  padding-inline: 16px;
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:list';
+@use 'sass:color';
+@use 'variables' as *;
+@use 'functions' as *;
+
+// ---------- breakpoints ----------
+@mixin respond($bp) {
+  $width: map.get($breakpoints, $bp);
+  @if not $width {
+    @error 'Unknown breakpoint `#{$bp}`.';
+  }
+  @media (min-width: $width) {
+    @content;
+  }
 }
 
-@mixin flex-center($gap: 8px) {
+@mixin below($bp) {
+  @media (max-width: #{map.get($breakpoints, $bp) - 1px}) {
+    @content;
+  }
+}
+
+// ---------- layout ----------
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0, $wrap: nowrap) {
   display: flex;
-  align-items: center;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
   gap: $gap;
 }
 
-@mixin respond($breakpoint) {
-  @if $breakpoint == md {
-    @media (min-width: 768px) { @content; }
-  } @else if $breakpoint == lg {
-    @media (min-width: 1280px) { @content; }
+@mixin grid($columns: 1, $gap: space(4)) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  gap: $gap;
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: map.get($page-padding, xs);
+  @include respond(md) {
+    padding-inline: map.get($page-padding, md);
+  }
+  @include respond(lg) {
+    padding-inline: map.get($page-padding, lg);
+  }
+}
+
+// custom 12-column grid with gutters: container > row > col
+@mixin row {
+  --gutter: #{map.get($gutters, xs)};
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: calc(var(--gutter) / -2);
+  row-gap: var(--gutter);
+  @include respond(md) {
+    --gutter: #{map.get($gutters, md)};
+  }
+  @include respond(lg) {
+    --gutter: #{map.get($gutters, lg)};
+  }
+}
+
+@mixin col($span, $columns: $grid-columns) {
+  flex: 0 0 math.percentage(math.div($span, $columns));
+  max-width: math.percentage(math.div($span, $columns));
+  min-width: 0;
+  padding-inline: calc(var(--gutter) / 2);
+}
+
+// ---------- typography ----------
+@mixin text-style($name) {
+  $style: map.get($text-styles, $name);
+  @if not $style {
+    @error 'Unknown text style `#{$name}`.';
+  }
+  $size: map.get($style, size);
+  $line: map.get($style, line);
+  font-size: rem(list.nth($size, 1));
+  line-height: rem(list.nth($line, 1));
+  font-weight: map.get($style, weight);
+  @if list.nth($size, 1) != list.nth($size, 2) {
+    @include respond(lg) {
+      font-size: rem(list.nth($size, 2));
+      line-height: rem(list.nth($line, 2));
+    }
+  }
+}
+
+// ---------- helpers ----------
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin focus-ring {
+  outline: 3px solid c(text);
+  outline-offset: 2px;
+}
+
+@mixin surface($radius: lg) {
+  background: c(surface);
+  border-radius: radius($radius);
+  box-shadow: 0 4px 18px color.change(token(accent), $alpha: 0.15);
+}
+
+@mixin pill-tag {
+  display: inline-block;
+  padding: space(1) space(3);
+  border-radius: radius(pill);
+  background: c(tint);
+  @include text-style(tag);
+}
+
+@mixin hover-lift {
+  transition: transform $transition, box-shadow $transition;
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@mixin animate($name, $duration: 0.4s, $delay: 0s) {
+  animation: $name $duration ease-out $delay both;
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: rem(44px);
+  padding: 0 space(5);
+  border: 2px solid transparent;
+  border-radius: radius(pill);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color $transition, border-color $transition;
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+@mixin button-variant($variant) {
+  @if $variant == primary {
+    background: c(accent);
+    color: c(on-accent);
+    &:hover {
+      background: c(accent-hover);
+    }
+  } @else if $variant == secondary {
+    background: transparent;
+    border-color: c(accent);
+    color: c(text);
+    &:hover {
+      background: c(accent-hover);
+    }
+  } @else {
+    @error 'Unknown button variant `#{$variant}`.';
   }
 }

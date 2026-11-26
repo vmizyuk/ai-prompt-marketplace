@@ -1,6 +1,46 @@
-// _functions.scss
-@use "sass:math";
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:color';
+@use 'variables' as *;
 
-@function rem($px, $base: 16) {
+// rem(24px) -> 1.5rem
+@function rem($px, $base: 16px) {
   @return math.div($px, $base) * 1rem;
+}
+
+// raw token value (Sass color)
+@function token($name) {
+  @if not map.has-key($colors, $name) {
+    @error 'Unknown color token `#{$name}`.';
+  }
+  @return map.get($colors, $name);
+}
+
+// themed token (CSS custom property)
+@function c($name) {
+  @return var(--color-#{$name});
+}
+
+// color-mix helper: mix-color($a, $b, 25%)
+@function mix-color($a, $b, $weight: 50%) {
+  @return color.mix($a, $b, $weight);
+}
+
+@function space($key) {
+  @return rem(map.get($spacing, $key));
+}
+
+@function radius($key) {
+  @return map.get($radius, $key);
+}
+
+@function z($layer) {
+  @return map.get($z-layers, $layer);
+}
+
+// fluid value between two viewport widths (360px -> 1280px)
+@function fluid($min, $max, $vmin: 360px, $vmax: 1280px) {
+  $slope: math.div(math.div($max, 1px) - math.div($min, 1px), math.div($vmax, 1px) - math.div($vmin, 1px));
+  $base: math.div($min, 1px) - $slope * math.div($vmin, 1px);
+  @return clamp(#{rem($min)}, calc(#{rem($base * 1px)} + #{$slope * 100}vw), #{rem($max)});
 }
