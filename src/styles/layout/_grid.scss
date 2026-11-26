@@ -1,4 +1,26 @@
-// _grid.scss
-@use "../abstracts/mixins" as *;
+@use '../abstracts' as *;
 
-.container { @include container(); }
+// Bonus: reusable 12-column grid with gutters (container / row / col)
+.container {
+  @include container;
+}
+
+.row {
+  @include row;
+}
+
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    @include col($i);
+  }
+}
+
+@each $bp in (md, lg) {
+  @include respond($bp) {
+    @for $i from 1 through $grid-columns {
+      .col-#{$bp}-#{$i} {
+        @include col($i);
+      }
+    }
+  }
+}

@@ -1,4 +1,26 @@
-// _footer.scss
-@use "../abstracts/mixins" as *;
+@use '../abstracts' as *;
 
-.u-footer { @include container(); padding: 24px 0; border-top: 1px solid rgba(255,255,255,.1); margin-top: 40px; }
+.site-footer {
+  margin-top: fluid(32px, 64px);
+  padding-block: space(6);
+  background: c(surface);
+  text-align: center;
+
+  &__copy {
+    margin-top: space(4);
+  }
+}
+
+.footer-nav {
+  &__list {
+    @include flex(row, center, center, space(2) space(5), wrap);
+  }
+
+  &__link {
+    font-weight: 600;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

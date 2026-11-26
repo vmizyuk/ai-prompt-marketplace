@@ -1,6 +1,71 @@
-// _header.scss
-@use "../abstracts/mixins" as *;
+@use '../abstracts' as *;
 
-.u-header { border-bottom: 1px solid rgba(255,255,255,.1); }
-.u-nav { @include container(); @include flex-center(16px); justify-content: space-between; padding-block: 12px; }
-.u-menu { @include flex-center(12px); list-style: none; margin: 0; padding: 0; }
+.skip-link {
+  position: absolute;
+  top: space(2);
+  left: space(4);
+  z-index: z(skip);
+  padding: space(2) space(4);
+  border-radius: radius(sm);
+  background: c(text);
+  color: c(bg);
+  transform: translateY(-200%);
+  &:focus {
+    transform: none;
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: z(header);
+  background: c(surface);
+
+  &__inner {
+    @include flex(row, space-between, center, space(2) space(4), wrap);
+    padding-block: space(3);
+    @include container;
+  }
+
+  &__logo {
+    text-decoration: none;
+    @include text-style(h3);
+  }
+
+  &__cart {
+    @include button-base;
+    @include button-variant(secondary);
+  }
+}
+
+.main-nav {
+  order: 3;
+  width: 100%;
+  overflow-x: auto;
+  @include respond(md) {
+    order: 0;
+    width: auto;
+    overflow: visible;
+  }
+
+  &__list {
+    @include flex(row, flex-start, center, space(1));
+  }
+
+  &__link {
+    display: block;
+    padding: space(2) space(4);
+    border-radius: radius(pill);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color $transition;
+    &:hover {
+      background: c(tint);
+    }
+    &[aria-current='page'] {
+      background: c(accent);
+      color: c(on-accent);
+    }
+  }
+}
