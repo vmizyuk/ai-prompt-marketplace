@@ -1,0 +1,66 @@
+@use '../abstracts' as *;
+
+.checkout {
+  display: grid;
+  gap: space(5);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'cart' 'contact' 'summary';
+  @include respond(lg) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-areas: 'cart summary' 'contact .';
+    align-items: start;
+  }
+}
+
+.cart,
+.contact,
+.summary {
+  @include surface(lg);
+  padding: space(5);
+}
+
+.cart {
+  grid-area: cart;
+  overflow-x: auto;
+
+  &__title {
+    margin-bottom: space(4);
+  }
+}
+
+.contact {
+  grid-area: contact;
+
+  &__title {
+    margin-bottom: space(4);
+  }
+}
+
+.checkout-form {
+  @include flex(column, flex-start, stretch, space(4));
+
+  &__note {
+    color: c(muted);
+    @include text-style(caption);
+  }
+}
+
+.summary {
+  grid-area: summary;
+
+  &__title {
+    margin-bottom: space(4);
+  }
+
+  &__row {
+    @include flex(row, space-between, center);
+    padding-block: space(1);
+
+    &--total {
+      margin-top: space(2);
+      padding-top: space(3);
+      border-top: 1px solid c(line);
+      @include text-style(price);
+    }
+  }
+}

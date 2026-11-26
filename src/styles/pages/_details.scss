@@ -1,0 +1,68 @@
+@use '../abstracts' as *;
+
+.details {
+  @include grid(1, space(5));
+  @include respond(lg) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: space(6);
+    align-items: start;
+  }
+}
+
+.product {
+  @include flex(column, flex-start, stretch, space(5));
+
+  &__media {
+    margin: 0;
+  }
+
+  &__tag {
+    margin-bottom: space(2);
+    @include pill-tag;
+  }
+
+  &__title {
+    @include text-style(h1);
+  }
+
+  &__meta,
+  &__rating {
+    color: c(muted);
+  }
+
+  &__subtitle {
+    margin-bottom: space(3);
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: space(5);
+  }
+
+  &__offer {
+    @include visually-hidden;
+  }
+}
+
+.buy-box {
+  @include surface(xl);
+  @include flex(column, flex-start, stretch, space(3));
+  padding: space(5);
+  @include respond(lg) {
+    position: sticky;
+    top: space(8);
+  }
+
+  &__price {
+    @include text-style(h1);
+  }
+
+  &__note {
+    color: c(muted);
+  }
+
+  &__form,
+  &__back {
+    display: grid;
+  }
+}

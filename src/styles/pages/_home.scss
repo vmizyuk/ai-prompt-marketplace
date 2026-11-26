@@ -1,23 +1,84 @@
-// _home.scss
-@use "../abstracts/mixins" as *;
+@use '../abstracts' as *;
 
-.home {
-  @include container();
-  padding-block: 24px;
+.hero {
+  @include row;
+  align-items: center;
+  padding-block: fluid(8px, 48px);
 
-  &__title { margin-bottom: 16px; }
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    @include respond(md) { grid-template-columns: repeat(2, 1fr); }
-    @include respond(lg) { grid-template-columns: repeat(3, 1fr); }
+  &__content {
+    @include col(12);
+    @include animate(slide-in, 0.6s);
+    @include respond(lg) {
+      @include col(7);
+    }
+  }
+
+  &__media {
+    @include col(12);
+    @include animate(fade, 0.8s);
+    margin: 0;
+    @include respond(lg) {
+      @include col(5);
+    }
+  }
+
+  &__title {
+    margin-bottom: space(4);
+    @include text-style(display);
+  }
+
+  &__text {
+    max-width: 52ch;
+    margin-bottom: space(5);
+    color: c(muted);
+    @include text-style(lead);
+  }
+
+  &__actions {
+    @include flex(row, flex-start, center, space(3), wrap);
   }
 }
 
-.card {
-  padding: 16px;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 8px;
-  background: rgba(255,255,255,.02);
+.features {
+  @include row;
+
+  &__item {
+    display: flex;
+    @include col(12);
+    @include respond(lg) {
+      @include col(4);
+    }
+  }
+}
+
+.feature {
+  @include surface(lg);
+  width: 100%;
+  padding: space(5);
+
+  &__title {
+    margin-bottom: space(2);
+  }
+
+  &__text {
+    color: c(muted);
+  }
+}
+
+.newsletter {
+  @include surface(xl);
+  margin-top: fluid(32px, 64px);
+  padding: space(5);
+
+  &__title {
+    margin-bottom: space(4);
+  }
+
+  &__form {
+    @include grid(1, space(3));
+    align-items: center;
+    @include respond(md) {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+  }
 }
